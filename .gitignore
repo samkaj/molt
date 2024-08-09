@@ -1,2 +1,4 @@
 molt
 *.o
+*.out
+/target

@@ -1,17 +1,17 @@
 # Object files:
-OBJS = ./lex.o
+OBJS = target/lex.o target/main.o
 
  # Header files:
-HEADERS =
+HEADERS = src/lex.h src/token.h
 
  # Source files:
-SOURCES = ./lex.c
+SOURCES = src/lex.c src/main.c
 
  # Executable name, run the program with ./molt
 OUT = molt
 
  # Compiler flags:
-FLAGS = -Wall -c -g
+FLAGS = -g -c
 
  # Add linker flags:
 LFLAGS =
@@ -19,12 +19,17 @@ LFLAGS =
  # Compiler:
 CC = clang
 
-all: $(OBJS)
+all: mkdirs $(OBJS)
 	$(CC) -g $(OBJS) -o $(OUT) $(LFLAGS)
 
-./lex.o: ./lex.c
-	$(CC) $(FLAGS) ./lex.c -o ./lex.o
+target/lex.o: src/lex.c
+	$(CC) $(FLAGS) src/lex.c -o target/lex.o
 
+target/main.o: src/main.c
+	$(CC) $(FLAGS) src/main.c -o target/main.o
+
+mkdirs:
+	mkdir -p target
 clean:
 	rm -f $(OBJS) $(OUT)
 
